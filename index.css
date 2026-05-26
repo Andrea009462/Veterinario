@@ -20,7 +20,7 @@
     color: var(--colore4);
 }
 
-body {
+#body {
     
     position: relative;
     background-color: var(--colore1);
@@ -40,6 +40,8 @@ body {
             color: var(--colore2);
             font-size: 5vw;
             height: 70%;
+            display: flex;
+            align-items: center;
         }
 
         > nav{
@@ -54,9 +56,10 @@ body {
                 padding: 0.1vw;
                 user-select: none;
                 border-radius: 25px;
+                color: var(--colore4);
             }
             div:hover{
-                background-color:var(--colore1) ;
+                text-decoration: underline;
             }
         }
 
@@ -112,6 +115,7 @@ body {
 
     section{
         height: 85vh;
+        color: var(--colore4);
     }
 
 
@@ -172,6 +176,10 @@ body {
                 
             }
         }
+    }
+
+    #home{
+           
     }
 }
 
