@@ -197,7 +197,7 @@
                 }
             }
             #HomeChiSiamo{
-                border: var(--colore3),solid,0.3vw;
+                background-color: var(--colore3);
                 border-radius: 25px;
                 padding: 1vw;
                 margin-left: 3vw;
@@ -220,13 +220,31 @@
         #divHome2{
             margin-top: 2vw;
             margin-left: 3vw;
-            
+
             header{
                 font-size: 2vw;
                 width: 40vw;
                 font-weight: bold;
             }
             #listaMedici{
+                li{
+                    border-color: var(--colore2);
+                    background-color: var(--colore3);
+                    width: 65vw;
+                    header{
+                        font-size: 1.5vw;
+                    }
+                    main{
+                        display: flex;
+                        align-items: center;
+                        width: 60vw;
+                        img{
+                        width: 10vw;
+                        margin-right: 2vw;
+                        border-radius: 50%;
+                        }
+                    }
+                }
 
             }
         }
