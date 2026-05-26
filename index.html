@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <script src="dati.js" defer></script>
+    <script src="index.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <header>
+        <div id="titolo">Veterinario</div> 
+
+        <div id="darkModeContainer" onclick="darkMode()">
+            <button id="darkMode" onclick="darkMode()"></button>
+            <label for="darkMode" id="lblDark" >
+                <div id="divDark"></div>
+            </label>
+        </div>
+
+        <button id="Registrazione" onclick="visualizza('login')">Registrati</button>
+
+        <nav>
+            <div id="navHome" onclick="visualizza('home')">Home</div>
+            <div id="navPren" onclick="visualizza('prenotazioni')">Prenotazione</div>
+            <div id="navVis" onclick="visualizza('visione')">Visione prenotazioni</div>
+            <div id="navStor" onclick="visualizza('storico')">Storico</div>
+        </nav>
+    </header>
+
+
+    
+    <section id="home">
+        <header>Benvenuto</header>
+    </section>
+    <section id="prenotazione">
+        <header>Questa è per la prenotazione</header>
+    </section>
+    <section id="visione">
+        <header>Questa è la visione</header>
+    </section>
+    <section id="storico">
+        <header>Questo è lo storico</header>
+    </section>
+    <section id="login">
+        <div >
+            <header>Accedi/Registrati</header>
+            <main>
+                <div>
+                    <div>Inserisci l'email:</div>
+                    <input type="text" id="inputEmail">
+                    <div>Inserisci la password:</div>
+                    <input type="text" id="inputPassword">
+                    <div id="divNome">Inserisci il nome:</div>
+                    <input type="text" id="inputNome">
+                    <div id="divCognome">Inserisci il cognome:</div>
+                    <input type="text" id="inputCognome">
+                    <div id="divData">Inserisci la data:</div>
+                    <input type="date" id="inputData">
+                    <div id="contenitoreReg">
+                        <button id="registrazione" onclick="registrati()">Registrati</button>
+                        <button id="accedi" onclick="accedi()">Accedi</button>
+                        <div id="cambia" onclick="cambia()">Hai già un accout,accedi</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+</body>
+</html>
