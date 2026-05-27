@@ -1,7 +1,56 @@
 let dark = true
 let reg = false
-let persona = "visitatore"
+//let persona = "visitatore"
+let persona = "admin"
+let idPersona
 const root = document.querySelector(":root")
+
+
+// ============================================================
+//  Dati di esempio – Gestione Clinica Veterinaria
+// ============================================================
+
+// ── UTENTI ───────────────────────────────────────────────────
+// codUtente | nome | cognome | password | dataNascita | email | ruolo
+
+var utenti = [
+    [1, "Marco",   "Rossi",    "1985-03-12", "marco.rossi@email.it",      "cliente"],
+    [2, "Giulia",  "Bianchi",  "1992-07-24", "giulia.bianchi@email.it",   "cliente"],
+    [3, "Luca",    "Ferrari",  "1979-11-05", "luca.ferrari@email.it",     "cliente"],
+    [4, "Alessia", "Conti",    "2000-01-30", "alessia.conti@email.it",    "cliente"],
+    [5, "Davide",  "Marino",   "1988-09-18", "davide.marino@email.it",    "cliente"],
+    [6, "Sofia",   "Esposito", "1975-04-22", "sofia.esposito@clinica.it", "medico" ],
+    [7, "Andrea",  "Ricci",    "1980-08-14", "andrea.ricci@clinica.it",   "medico" ],
+    [8, "Elena",   "Gallo",    "1990-06-03", "elena.gallo@clinica.it",    "admin"  ],
+];
+
+
+// ── ANIMALI ───────────────────────────────────────────────────
+// codAnimale | nome | razza | specie | dataNascita | note
+
+var animali = [
+    [1, "Fido",   "Labrador",         "Cane",     "2019-05-10", "Allergia al pollame"      ],
+    [2, "Micia",  "Europeo",          "Gatto",    "2020-02-14", null                       ],
+    [3, "Rex",    "Pastore Tedesco",  "Cane",     "2018-11-23", "Displasia all'anca lieve" ],
+    [4, "Birba",  "Persiano",         "Gatto",    "2021-08-07", "Sterilizzata"             ],
+    [5, "Tweety", "Canarino",         "Uccello",  "2022-03-01", null                       ],
+    [6, "Palla",  "Coniglio Nano",    "Coniglio", "2023-01-15", "Vaccinazioni aggiornate"  ],
+    [7, "Luna",   "Golden Retriever", "Cane",     "2020-07-19", null                       ],
+];
+
+
+// ── PRENOTAZIONI ──────────────────────────────────────────────
+// codPrenotazione | dataPrenotazione | dataAppuntamento | codCliente | codAnimale | codMedico | commentoCliente | commentoMedico | effettuata
+
+var prenotazioni = [
+    [1, "2026-04-01", "2026-04-10 09:00", 1, 1, 6, "Fido gratta spesso le orecchie.",         "Otite lieve, prescritto trattamento topico.",    true ],
+    [2, "2026-04-05", "2026-04-15 10:30", 2, 2, 7, "Micia ha perso peso nell'ultimo mese.",   "Eseguiti esami del sangue, valori nella norma.", true ],
+    [3, "2026-04-10", "2026-04-20 11:00", 3, 3, 6, "Zoppica dalla zampa posteriore destra.",  "Confermata displasia, consigliata fisioterapia.", true],
+    [4, "2026-04-28", "2026-05-08 09:30", 4, 4, 7, "Controllo post-sterilizzazione.",         null,                                             false],
+    [5, "2026-04-30", "2026-05-12 14:00", 5, 7, 6, "Prima visita, vaccini da aggiornare.",    null,                                             false],
+    [6, "2026-05-02", "2026-05-15 16:00", 1, 1, 7, "Controllo orecchie dopo il trattamento.", null,                                             false],
+];
+
 
 //sezioni
 const _home = document.getElementById("home")
@@ -34,11 +83,16 @@ const _cambia = document.getElementById("cambia")
 const _lblDark = document.getElementById("lblDark")
 const _divDark = document.getElementById("divDark")
 
+//prenotazione
+const _cmbAnimali = document.getElementById("animali")
+const _cmbInfermieri = document.getElementById("infermieri")
+
+
 cambia()
 darkMode()
 autorizzazioni()
 visualizza("home")
-
+caricaCmb()
 
 
 
@@ -63,6 +117,7 @@ function visualizza(sezione){
             break
         case "prenotazioni":
             _prenotazioni.style.display = "block"
+            _prenotazioni.style.display = "flex"
 
             _login.style.display = "none"
             _home.style.display = "none"
@@ -142,50 +197,7 @@ function visualizza(sezione){
 
 //#region registragione/login
 
-// ============================================================
-//  Dati di esempio – Gestione Clinica Veterinaria
-// ============================================================
 
-// ── UTENTI ───────────────────────────────────────────────────
-// codUtente | nome | cognome | password | dataNascita | email | ruolo
-
-var utenti = [
-    [1, "Marco",   "Rossi",    "1985-03-12", "marco.rossi@email.it",      "cliente"],
-    [2, "Giulia",  "Bianchi",  "1992-07-24", "giulia.bianchi@email.it",   "cliente"],
-    [3, "Luca",    "Ferrari",  "1979-11-05", "luca.ferrari@email.it",     "cliente"],
-    [4, "Alessia", "Conti",    "2000-01-30", "alessia.conti@email.it",    "cliente"],
-    [5, "Davide",  "Marino",   "1988-09-18", "davide.marino@email.it",    "cliente"],
-    [6, "Sofia",   "Esposito", "1975-04-22", "sofia.esposito@clinica.it", "medico" ],
-    [7, "Andrea",  "Ricci",    "1980-08-14", "andrea.ricci@clinica.it",   "medico" ],
-    [8, "Elena",   "Gallo",    "1990-06-03", "elena.gallo@clinica.it",    "admin"  ],
-];
-
-
-// ── ANIMALI ───────────────────────────────────────────────────
-// codAnimale | nome | razza | specie | dataNascita | note
-
-var animali = [
-    [1, "Fido",   "Labrador",         "Cane",     "2019-05-10", "Allergia al pollame"      ],
-    [2, "Micia",  "Europeo",          "Gatto",    "2020-02-14", null                       ],
-    [3, "Rex",    "Pastore Tedesco",  "Cane",     "2018-11-23", "Displasia all'anca lieve" ],
-    [4, "Birba",  "Persiano",         "Gatto",    "2021-08-07", "Sterilizzata"             ],
-    [5, "Tweety", "Canarino",         "Uccello",  "2022-03-01", null                       ],
-    [6, "Palla",  "Coniglio Nano",    "Coniglio", "2023-01-15", "Vaccinazioni aggiornate"  ],
-    [7, "Luna",   "Golden Retriever", "Cane",     "2020-07-19", null                       ],
-];
-
-
-// ── PRENOTAZIONI ──────────────────────────────────────────────
-// codPrenotazione | dataPrenotazione | dataAppuntamento | codCliente | codAnimale | codMedico | commentoCliente | commentoMedico | effettuata
-
-var prenotazioni = [
-    [1, "2026-04-01", "2026-04-10 09:00", 1, 1, 6, "Fido gratta spesso le orecchie.",         "Otite lieve, prescritto trattamento topico.",    true ],
-    [2, "2026-04-05", "2026-04-15 10:30", 2, 2, 7, "Micia ha perso peso nell'ultimo mese.",   "Eseguiti esami del sangue, valori nella norma.", true ],
-    [3, "2026-04-10", "2026-04-20 11:00", 3, 3, 6, "Zoppica dalla zampa posteriore destra.",  "Confermata displasia, consigliata fisioterapia.", true],
-    [4, "2026-04-28", "2026-05-08 09:30", 4, 4, 7, "Controllo post-sterilizzazione.",         null,                                             false],
-    [5, "2026-04-30", "2026-05-12 14:00", 5, 7, 6, "Prima visita, vaccini da aggiornare.",    null,                                             false],
-    [6, "2026-05-02", "2026-05-15 16:00", 1, 1, 7, "Controllo orecchie dopo il trattamento.", null,                                             false],
-];
 
 aggiungiPassword()
 
@@ -252,6 +264,7 @@ function accedi(){
         
         if (_inputEmail.value == utenti[i][5] && _inputPassword.value == utenti[i][3]) {
             trovato = true
+            idPersona = i+1
             persona = utenti[i][6]
         }
         else if(_inputEmail.value == utenti[i][5] && _inputPassword.value != utenti[i][3]){
@@ -306,8 +319,10 @@ function registrati(){
             utenti.push(nuovoUtente)
             alert("Account creato con successo")
             persona = "cliente"
+            idPersona = cont
             autorizzazioni()
             visualizza("home")
+
         }
         else{
             alert("riempire tutti i campi")
@@ -355,6 +370,80 @@ function valoreContatore(){
         
     }
     return cont+1
+}
+
+//#endregion
+
+//#region Gestione sezione prenotazione
+
+function genera(){
+
+}
+
+//#endregion
+
+//#region Gestione prenotazione
+
+function caricaCmb() {
+    
+    for (let i = 0; i < animali.length; i++) {
+        const _elementoCmbAnimali = document.createElement("option")
+        _elementoCmbAnimali.value = i+1
+        _elementoCmbAnimali.textContent = animali[i][1].toString()
+        _cmbAnimali.appendChild(_elementoCmbAnimali)
+    }
+    for (let i = 0; i < utenti.length; i++) {
+        if (utenti[i][5] == "medico") {
+            const _elementoCmbDottori = document.createElement("option")
+            _elementoCmbDottori.value = i+1
+            _elementoCmbDottori.textContent = utenti[i][1] + " " + utenti[i][2]
+            _cmbInfermieri.appendChild(_elementoCmbDottori)
+        }
+        
+    }
+}
+function prenota(){
+    // codPrenotazione | dataPrenotazione | dataAppuntamento | codCliente | codAnimale | codMedico | commentoCliente | commentoMedico | effettuata
+    const _testoPren = document.getElementById("testoPren")
+    const _dataPren = document.getElementById("dataPren")
+    const _oraPren = document.getElementById("oraPren")
+    const _animalePren = document.getElementById("animali")
+    const _infermierePren = document.getElementById("infermieri")
+    if (_testoPren.value != "" && _dataPren.value != "" && _animalePren.value != "" && _infermierePren.value != "") {
+        let prenotazione = []
+        let codPren = calcolaCodicePrenotazione()
+        let data = new Date().toLocaleDateString('fr-CA');
+        let dataApp = _dataPren.value + " " + _oraPren.value
+        let codCliente = idPersona
+        let codAnimale = +_animalePren.value
+        let codMedico = +_infermierePren.value
+        let commentoCliente = _testoPren.value
+        let commentoMedico = ""
+        let effettuata = false
+        prenotazione.push(codPren)
+        prenotazione.push(data)
+        prenotazione.push(dataApp)
+        prenotazione.push(codCliente)
+        prenotazione.push(codAnimale)
+        prenotazione.push(codMedico)
+        prenotazione.push(commentoCliente)
+        prenotazione.push(commentoMedico)
+        prenotazione.push(effettuata)
+        prenotazioni.push(prenotazione)
+    }
+    else{
+        alert("riempire tutti i campi")
+    }
+}
+
+function calcolaCodicePrenotazione(){
+    let cont = 0;
+    for (let i = 0; i < prenotazioni.length; i++) {
+        cont++
+        
+    }
+    cont++
+    return cont
 }
 
 //#endregion

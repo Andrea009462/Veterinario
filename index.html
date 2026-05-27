@@ -76,8 +76,29 @@
         </div>
         <!--<div>dicono di noi</div> se hai tempo-->
     </section>
+
     <section id="prenotazione">
-        <header>Questa è per la prenotazione</header>
+        <div id="divPren1">
+            <header>Fai qui la tua prenotazione</header>
+            <div><label for="animali">Scegli un colore:</label><select id="animali" name="animali"></select></div>
+            <div><label for="infermieri">Scegli il veterinario:</label><select id="infermieri" name="infermieri"></select></div>
+            <div><label for="dataPrenotazione">Inserisci la data di prenotazione:</label><input id="dataPren" type="date" name="dataPrenotazione"></div>
+            <div>
+                <label for="oraPrenotazione">Inserisci la data di prenotazione:</label><select name="oraPrenotazione" id="oraPren">
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                </select>
+            </div>
+            <div><label for="testoPrenotazione">Inserisci un commento:</label><input id="testoPren" type="text" name="testoPrenotazione" placeholder="Inserisci un commento per il veterinario"></div>
+            <button onclick="prenota()">Conferma prenotazione</button>
+
+
+        </div>
     </section>
     <section id="visione">
         <header>Questa è la visione</header>
