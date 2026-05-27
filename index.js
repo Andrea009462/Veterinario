@@ -1,7 +1,7 @@
 let dark = true
 let reg = false
-//let persona = "visitatore"
-let persona = "admin"
+let persona = "visitatore"
+//let persona = "admin"
 let idPersona
 const root = document.querySelector(":root")
 
