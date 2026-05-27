@@ -210,6 +210,7 @@
                     font-size: 2vw;
                     width: 40vw;
                     font-weight: bold;
+                    color: var(--colore2);
                 }
                 main{
                     width: 40vw;
@@ -220,16 +221,19 @@
         #divHome2{
             margin-top: 2vw;
             margin-left: 3vw;
+            padding-bottom: 3vw;
 
             header{
                 font-size: 2vw;
                 width: 40vw;
                 font-weight: bold;
+                color: var(--colore2);
             }
             #listaMedici{
                 li{
                     border-color: var(--colore2);
                     background-color: var(--colore3);
+                    color: var(--colore4);
                     width: 65vw;
                     header{
                         font-size: 1.5vw;
@@ -245,6 +249,7 @@
                         }
                     }
                 }
+                
 
             }
         }

@@ -305,6 +305,8 @@ function registrati(){
             nuovoUtente.push("cliente")
             utenti.push(nuovoUtente)
             alert("Account creato con successo")
+            persona = "cliente"
+            autorizzazioni()
             visualizza("home")
         }
         else{
@@ -357,7 +359,7 @@ function valoreContatore(){
 
 //#endregion
 
-
+//#region varie
 //funzione di test
 function saluta(){
     alert("ciao")
@@ -368,3 +370,5 @@ function generaNumero(min, max){
     let n = Math.floor((max - min) * Math.random() + min); // genera un numero da 0 a 0,9999 poi moltiplico per max - min poi addo min al fondo
     return n;
 }
+
+//#endregion
