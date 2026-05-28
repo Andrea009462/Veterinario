@@ -53,6 +53,7 @@ var prenotazioni = [
 
 
 //sezioni
+const _btnRegistrazione = document.getElementById("Registrazione")
 const _home = document.getElementById("home")
 const _prenotazioni = document.getElementById("prenotazione")
 const _visione = document.getElementById("visione")
@@ -125,7 +126,8 @@ function visualizza(sezione){
             _storico.style.display = "none"
             break
         case "visione":
-            _visione.style.display = "block"    
+            _visione.style.display = "block" 
+            _visione.style.display = "flex"    
             
             _prenotazioni.style.display = "none"
             _login.style.display = "none"
@@ -134,6 +136,7 @@ function visualizza(sezione){
             break
         case "storico":
             _storico.style.display = "block"
+            _storico.style.display = "flex"
 
             _visione.style.display = "none"    
             _prenotazioni.style.display = "none"
@@ -279,6 +282,9 @@ function accedi(){
     else{
         alert("Accesso effettuato")
         visualizza("home")
+        generaStorico()
+        generaVisione()
+        _btnRegistrazione.style.display = "none"
     }
     autorizzazioni()
 }
@@ -322,7 +328,8 @@ function registrati(){
             idPersona = cont
             autorizzazioni()
             visualizza("home")
-
+            generaStorico()
+            _btnRegistrazione.style.display = "none"
         }
         else{
             alert("riempire tutti i campi")
@@ -374,11 +381,138 @@ function valoreContatore(){
 
 //#endregion
 
-//#region Gestione sezione prenotazione
+//#region Storico
 
-function genera(){
+function generaStorico(){
+    //codPrenotazione | dataPrenotazione | dataAppuntamento | codCliente | codAnimale | codMedico | commentoCliente | commentoMedico | effettuata
+    let cont = 0
+    let intestazione = ["Data Prenotazione","Data appuntamento","Animale","Medico","Commento","Effettuata"]
 
+    const _sezioneStorico = document.getElementById("storico")
+    const _contenitoreStorico = document.createElement("div")
+    const _headerSto = document.createElement("header")
+    const _tableSto = document.createElement("table")
+    for (let i = 0; i < prenotazioni.length; i++) {
+        if (prenotazioni[i][3] == idPersona) {
+            cont++
+            if (cont == 1) {
+                const _rigaHeader = document.createElement("tr")
+
+                for (let j = 0; j < intestazione.length; j++) {
+                    const _valoreHeader = document.createElement("th")
+                    _valoreHeader.textContent = intestazione[j]
+                    _rigaHeader.appendChild(_valoreHeader)
+                }
+                _tableSto.appendChild(_rigaHeader)
+            }
+
+            const _tableRigaSto = document.createElement("tr")
+            for (let j = 0; j < intestazione.length; j++) {
+                const _tableElementSto = document.createElement("td")
+                switch(j){
+                    case 0:
+                        _tableElementSto.textContent = prenotazioni[i][1]
+                        break
+                    case 1:
+                        _tableElementSto.textContent = prenotazioni[i][2]
+                        break
+                    case 2:
+                        _tableElementSto.textContent = animali[(prenotazioni[i][4])-1][1]//il 4,nella tabella degli animali è l'1
+                        break
+                    case 3:
+                        _tableElementSto.textContent = utenti[(prenotazioni[i][5]) - 1][1] + " " + utenti[(prenotazioni[i][5]) - 1][2] //in posizione 1 e 2 in utenti
+                        break
+                    case 4:
+                        _tableElementSto.textContent = prenotazioni[i][6]
+                        break
+                    case 5:
+                        if (prenotazioni[i][8]) {_tableElementSto.textContent = "visita effettuata" } else {_tableElementSto.textContent = "visita non effettuata" }
+                        break
+                }
+
+                _tableRigaSto.appendChild(_tableElementSto)
+            }
+            _tableSto.appendChild(_tableRigaSto)
+        }
+        
+    }
+    if (cont == 0) {
+        _headerSto.textContent = "Non hai ancora eseguito prenotazioni"
+    }
+    else{
+        _headerSto.textContent = "Le tue prenotazioni:"
+    }
+
+
+    _contenitoreStorico.appendChild(_headerSto)
+    _contenitoreStorico.appendChild(_tableSto)
+    _sezioneStorico.appendChild(_contenitoreStorico)
 }
+
+//#endregion
+
+//#region Visione
+
+    function generaVisione(){
+        // codPrenotazione | dataPrenotazione | dataAppuntamento | codCliente | codAnimale | codMedico | commentoCliente | commentoMedico | effettuata
+        let cont = 0;
+        let intestazione = ["Data appuntamento","Nome cliente","Nome animale","Commmento cliente","Effettuata"]
+        const _sezioneVisione = document.getElementById("visione")
+        const _headerVisione = document.createElement("header")
+        const _tableVis = document.createElement("table")
+
+        for (let i = 0; i < prenotazioni.length; i++) {
+            if (prenotazioni[i][5] == idPersona) {
+               cont++
+               if (cont == 1) {
+                    const _tableVisHeaderRow = document.createElement("tr")
+                    for (let j = 0; j < intestazione.length; j++) {
+                        const _tableVisHeaderElement = document.createElement("th")
+                        _tableVisHeaderElement.textContent = intestazione[i]
+                        _tableVisHeaderRow.appendChild(_tableVisHeaderElement)
+                    }
+                    _tableVis.appendChild(_tableVisHeaderRow)
+               } 
+
+               const _tableVisRow = document.createElement("tr")
+               for (let j = 0; j < intestazione.length; j++) {
+                const _tableVisElem = document.createElement("td")
+                switch(j){
+                    case 0:
+                         _tableVisElem.textContent = prenotazioni[i][2]
+                         break
+                    case 1:
+                         _tableVisElem.textContent = utenti[(prenotazioni[i][3]) - 1][1] + " " + utenti[(prenotazioni[i][3]) - 1][2]
+                        break
+                    case 2:
+                         _tableVisElem.textContent = animali[(prenotazioni[i][4]) - 1][1]
+                         break
+                    case 3:
+                        _tableVisElem.textContent = prenotazioni[i][6]
+                        break
+                    case 4:
+                         if (prenotazioni[i][8]) {_tableVisElem.textContent = "Visita già effettuata"} else{_tableVisElem.textContent = "Visita da effettuare"}
+                        break
+                }
+
+                _tableVisRow.appendChild(_tableVisElem)
+               }
+               _tableVis.appendChild(_tableVisRow)
+            }
+            
+        }
+
+
+        _headerVisione.textContent = "Visualizzazione visite"
+        _sezioneVisione.appendChild(_headerVisione)
+        _sezioneVisione.appendChild(_tableVis)
+
+
+        
+    
+    
+    }
+
 
 //#endregion
 
@@ -430,6 +564,9 @@ function prenota(){
         prenotazione.push(commentoMedico)
         prenotazione.push(effettuata)
         prenotazioni.push(prenotazione)
+        alert("Prenotazione effettuata con successo")
+        generaStorico()
+        generaVisione()
     }
     else{
         alert("riempire tutti i campi")

@@ -199,6 +199,7 @@
             #HomeChiSiamo{
                 background-color: var(--colore3);
                 border-radius: 25px;
+                font-size: 1vw;
                 padding: 1vw;
                 margin-left: 3vw;
                 display: flex;
@@ -302,6 +303,60 @@
             }
         }
     }
+
+    #storico{
+        justify-content: center;
+        header{
+            font-size: 3vw;
+            color: var(--colore2);
+            text-align: center;
+            margin-bottom: 5vw;
+            margin-top: 8vw;
+        }
+        table{
+            th{
+                font-size: 2vw;
+                padding: 0.5vw;
+                border: 0.3vw,solid,var(--colore4);
+                color: var(--colore2);
+            }
+            td{
+                font-size: 1.2vw;
+                padding: 0.5vw;
+                color: var(--colore4);
+                border: 0.3vw,solid,var(--colore4);
+                text-align: center;
+            }
+            
+        }
+    }
+
+    #visione{
+        flex-direction: column;
+        justify-content: center;
+        header{
+            font-size: 3vw;
+            color: var(--colore2);
+            text-align: center;
+            margin-bottom: 5vw;
+            margin-top: 5vw;
+        }
+        table{
+            th{
+                text-align: center;
+                font-size: 2vw;
+                border: 0.3vw,solid,var(--colore4);
+                color: var(--colore2);
+            }
+            td{
+                font-size: 1.2vw;
+                color: var(--colore4);
+                border: 0.3vw,solid,var(--colore4);
+                text-align: center;
+            }
+            
+        }
+    }
 }
 
 .darkLblOff{
@@ -318,3 +373,27 @@
 
 }
 */
+@media screen and (max-width: 600px) {
+    #divHome1 {
+        flex-direction: column;
+    }
+    .carousel-item img{
+        width: 40vh;
+    }
+    
+    #HomeChiSiamo{
+        margin-right: 5vw;
+    }
+    #HomeChiSiamo main{
+        
+        font-size: 1.3vh;
+        
+    }
+    
+    #contenitoreCarosello {
+        /* Aggiungi qui le tue regole, altrimenti puoi eliminare questo blocco */
+    }
+}
+    
+
+
